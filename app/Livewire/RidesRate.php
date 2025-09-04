@@ -4,13 +4,18 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\prices;
-class SalesTest extends Component
+class RidesRate extends Component
 {
 
     public $prices = [];
     public $showModal = false;
     public $modalDetails;
     public $rideToDelete;
+    public $showAddNewRide = false;
+
+    public $viewDetailsModal = false;
+
+    public $rideId;
     public function mount(){
         $this->prices=prices::all();
     }
@@ -35,8 +40,14 @@ class SalesTest extends Component
         // Reload the page to reflect the changes
         return redirect()->route('AdminDashboard');
     }
+
+    public function showViewDetails($rideId)
+    {
+        $this->rideId = $rideId;
+        $this->viewDetailsModal = true;
+    }
     public function render()
     {
-        return view('livewire.sales-test');
+        return view('livewire.rides-rate');
     }
 }

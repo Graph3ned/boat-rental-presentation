@@ -63,26 +63,10 @@ new #[Layout('layouts.guest')] class extends Component
                 <x-input-error :messages="$errors->get('form.password')" class="mt-1" />
             </div>
 
-            <!-- Remember Me -->
-            <div class="flex items-center">
-                <label for="remember" class="inline-flex items-center">
-                    <input wire:model="form.remember" 
-                        id="remember" 
-                        type="checkbox" 
-                        class="rounded border-blue-300 text-blue-600 shadow-sm focus:ring-blue-500" 
-                        name="remember">
-                    <span class="ms-2 text-xs text-blue-700">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
             <div class="flex items-center justify-between">
-                @if (Route::has('password.request'))
-                    <a class="text-xs text-blue-700 hover:text-blue-900 transition-colors duration-200" 
-                        href="{{ route('password.request') }}" 
-                        wire:navigate>
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
+                <p class="text-xs text-blue-600 text-center">
+                    Let's get you in!
+                </p>
 
                 <x-primary-button class="bg-blue-600 hover:bg-blue-700 transition-colors duration-200 rounded-md px-4 py-2 text-sm">
                     {{ __('Dive In') }}

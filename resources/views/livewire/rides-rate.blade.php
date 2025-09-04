@@ -11,7 +11,7 @@
     <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-xl mb-6">
       <div class="bg-gradient-to-r from-cyan-500 to-blue-600 p-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-          <h2 class="text-2xl font-bold text-white">Prices</h2>
+          <h2 class="text-2xl font-bold text-white">Ride Types</h2>
           <button wire:navigate href="/admin/create" 
                   class="inline-flex items-center px-6 py-2.5 bg-white/20 hover:bg-white/30 active:bg-white/40 
                          rounded-lg transition-all duration-200 text-white text-sm font-medium backdrop-blur-sm group">
@@ -36,7 +36,7 @@
                     {{ str_replace('_', ' ', $price->ride_type) }}
                   </h3>
 
-                  <button wire:navigate href="/admin/price/{{$price->ride_type}}" 
+                  <button wire:navigate href="/admin/view-details/{{$price->ride_type}}" 
                           class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 
                                  hover:from-cyan-600 hover:to-blue-700 rounded-lg transition-all duration-200 
                                  text-white text-sm font-medium shadow-md hover:shadow-lg">

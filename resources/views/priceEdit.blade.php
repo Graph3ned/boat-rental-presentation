@@ -2,7 +2,7 @@
     <x-slot name="header">
     <div class="flex justify-between items-center">
             <h2 class="font-semibold text-2xl text-blue-800 dark:text-blue-300 leading-tight">
-                {{ __('prices') }}
+                {{ __('Rides Rate') }}
             </h2>
         </div>
     </x-slot>

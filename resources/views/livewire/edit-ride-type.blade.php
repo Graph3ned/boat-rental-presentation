@@ -42,7 +42,7 @@
                         <div class="flex space-x-4 pt-4">
                             <button type="button" 
                                     wire:navigate 
-                                    href="/admin/price/{{ $ride_type }}"
+                                    href="/admin/view-details/{{ $ride_type }}"
                                     class="w-full inline-flex justify-center items-center px-6 py-2.5 border border-transparent
                                            text-white bg-gray-600 hover:bg-gray-700 focus:ring-gray-500
                                            rounded-lg transition-all duration-200 font-medium text-sm

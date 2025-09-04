@@ -1,12 +1,12 @@
 <div class="min-h-full">
     <div class="w-full p-4 relative">
         <!-- Clean title with logo blue -->
-        <h2 class="text-2xl font-bold text-center mb-6 text-[#00A3E0]">🌊 Rides Management</h2>
+        <h2 class="text-2xl font-bold text-center mb-6 text-[#00A3E0]">🌊 Staff Dashboard</h2>
 
         <div class="flex justify-between items-center mb-6 flex-col sm:flex-row space-y-4 sm:space-y-0">
             <div class="flex items-center space-x-4">
                 <!-- Add Ride Button -->
-                <button wire:click="$set('showCreateModal', true)"
+                <button wire:click="$set('showAddRides', true)"
                         class="bg-[#00A3E0] text-white py-2.5 px-6 rounded-lg font-medium 
                                transform transition-all duration-200 hover:-translate-y-1 
                                hover:shadow-lg hover:bg-[#0093CC]">
@@ -159,7 +159,7 @@
             </div>
         </div>
 
-        <div class="mt-6 flex justify-center">
+        <div class="mt-6 flex justify-center hidden">
             <button onclick="testTimeOut()" 
                     class="bg-[#00A3E0] text-white py-2.5 px-6 rounded-lg font-medium 
                            transform transition-all duration-200 hover:-translate-y-1 
@@ -175,16 +175,16 @@
         </div>
 
         <!-- Create Ride Modal -->
-        @if($showCreateModal)
+        @if($showAddRides)
             <div class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
                 <div class="flex items-center justify-center min-h-screen p-4">
                     <!-- Background overlay -->
                     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" 
-                         wire:click="$set('showCreateModal', false)"></div>
+                         wire:click="$set('showAddRides', false)"></div>
 
                     <!-- Modal panel -->
                     <div class="relative bg-white rounded-lg shadow-xl transform transition-all w-full max-w-lg">
-                        @livewire('create-rides-rental')
+                        @livewire('add-ride')
                     </div>
                 </div>
             </div>
@@ -403,5 +403,3 @@
     });
 
 </script>
-
-

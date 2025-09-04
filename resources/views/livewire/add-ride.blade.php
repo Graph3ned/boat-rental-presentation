@@ -1,106 +1,157 @@
-<div class="min-h-full p-4">
-    <div class="w-full rounded-lg relative overflow-hidden">
-        <!-- Success Message -->
+<div class="min-h-full">
+    <div class="w-full max-w-lg p-6 bg-white rounded-lg relative overflow-hidden border-double border-4 border-[#00A3E0] mx-auto">
+        <h1 class="text-2xl font-bold text-center mb-6 text-[#00A3E0]">Add a Ride</h1>
+
         @if (session()->has('message'))
-            <div class="bg-green-100 border border-green-400 text-green-7000 px-4 py-3 rounded relative mb-4" role="alert">
-                <span class="block sm:inline">{{ session('message') }}</span>
+            <div class="mb-4 p-4 bg-green-200 text-green-800 rounded-lg">
+                {{ session('message') }}
             </div>
         @endif
+        
+        <form wire:submit.prevent="submit">
+            <!-- Ride Type Dropdown -->
+            <div class="mb-4">
+                <label for="rideType" class="block text-sm font-medium text-gray-700">Ride Type</label>
+                <select wire:model.live="rideType" 
+                    id="rideType" 
+                    class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-[#00A3E0] focus:ring focus:ring-[#00A3E0] focus:ring-opacity-50">
+                    <option value="" disabled>Select Ride Type</option>
+                    @foreach(array_keys($prices) as $type)
+                        <option value="{{ $type }}">{{ ucfirst(str_replace('_', ' ', $type)) }}</option>
+                    @endforeach
+                </select>
+                @error('rideType')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
 
-        <!-- Main Form Card -->
-        <div class="max-w-2xl mx-auto">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 transition-all duration-300 hover:shadow-xl">
-                <!-- Header -->
-                <div class="bg-gradient-to-r from-cyan-500 to-blue-600 p-6">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold text-white">Create Ride Pricing</h2>
-                    </div>
+            <!-- Classification Dropdown -->
+            <div class="mb-4">
+                <label for="classification" class="block text-sm font-medium text-gray-700">Classification</label>
+                <select wire:model.live="classification" id="classification" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm">
+                    <option value="" disabled>Select Classification</option>
+                    @if($rideType && isset($prices[$rideType]))
+                        @foreach($prices[$rideType] as $key => $value)
+                            <!-- Display only the part after the hyphen -->
+                            <!-- <option value="{{ $key }}">{{ \Str::after($key, '-') }}</option> -->
+                            <option value="{{ $key }}">{{ ucfirst(str_replace('_', ' ', $key)) }}</option>
+                        @endforeach
+                    @endif
+                </select>
+                @error('classification')
+                    <div class="text-red-500">{{$message}}</div>
+                @enderror
+            </div>
+            
+            <div class="mb-4">
+                <label for="note" class="block text-sm font-medium text-gray-700">Note:</label>
+                <textarea 
+                    wire:model="note" 
+                    id="note" 
+                    rows="3" 
+                    class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-[#00A3E0] focus:ring focus:ring-[#00A3E0] focus:ring-opacity-50"
+                    placeholder="Enter any additional notes here..."
+                ></textarea>
+                @error('note')
+                    <div class="text-red-500">{{$message}}</div>
+                @enderror
+            </div>
+
+            <!-- life jacket usage -->
+            <div class="mb-4">
+                    <label for="life_jacket_usage" class="block text-sm font-medium text-gray-700">life jacket usage</label>
+                    <select wire:model.live="life_jacket_usage" id="life_jacket_usage" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    @error('life_jacket_usage')
+                        <div class="text-red-500">{{$message}}</div>
+                    @enderror
                 </div>
 
-                <!-- Form Content -->
-                <div class="p-6">
-                    <form wire:submit.prevent="submit" class="space-y-6">
-                        <!-- Ride Type Input -->
-                        <div class="space-y-2">
-                            <label for="ride_type" class="flex items-center text-gray-700 font-medium text-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                </svg>
-                                Ride Type
-                            </label>
-                            <input wire:model="ride_type" 
-                                id="ride_type" 
-                                type="text" 
-                                placeholder="Enter ride type"
-                                class="w-full text-sm rounded-lg border-gray-200 bg-gray-50 focus:bg-white hover:bg-gray-50/80
-                                       focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200">
-                            @error('ride_type')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+            <!-- Predefined Duration Dropdown (only show when custom duration is not selected) -->
+            @if(!$showCustomDuration)
+                <div class="mb-4">
+                    <label for="predefinedDuration" class="block text-sm font-medium text-gray-700">Duration</label>
+                    <select wire:model.live="duration" id="predefinedDuration" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm">
+                        <option value="60">1 Hour</option>
+                        <option value="30">30 minutes</option>
+                        <option value="120">2 Hours</option>
+                        <option value="180">3 Hours</option>
+                        <option value="240">4 Hours</option>
+                        <option value="300">5 Hours</option>
+                    </select>
+                    @error('duration')
+                        <div class="text-red-500">{{$message}}</div>
+                    @enderror
+                </div>
+            @endif
 
-                        <!-- Classification Input -->
-                        <div class="space-y-2">
-                            <label for="classification" class="flex items-center text-gray-700 font-medium text-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                                </svg>
-                                Classification
-                            </label>
-                            <input wire:model="classification" 
-                                id="classification" 
-                                type="text" 
-                                placeholder="pb-Blue"
-                                class="w-full text-sm rounded-lg border-gray-200 bg-gray-50 focus:bg-white hover:bg-gray-50/80
-                                       focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200">
-                            @error('classification')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+            
 
-                        <!-- Price Per Hour Input -->
-                        <div class="space-y-2">
-                            <label for="price_per_hour" class="flex items-center text-gray-700 font-medium text-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                Price Per Hour
-                            </label>
-                            <input wire:model="price_per_hour" 
-                                id="price_per_hour" 
-                                type="number" 
-                                placeholder="100"
-                                class="w-full text-sm rounded-lg border-gray-200 bg-gray-50 focus:bg-white hover:bg-gray-50/80
-                                       focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200">
-                            @error('price_per_hour')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+            <!-- Custom Duration Input (only show if checkbox is checked) -->
+            <div class="mb-4" @if(!$showCustomDuration) style="display:none" @endif>
+                <label for="customDuration" class="block text-sm font-medium text-gray-700">Custom Duration (minutes)</label>
+                <input wire:model.live="customDuration" id="customDuration" type="number" min="1" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm">
+                @error('customDuration')
+                    <div class="text-red-500">{{$message}}</div>
+                @enderror
+            </div>
 
-                        <!-- Action Buttons -->
-                        <div class="flex space-x-4 pt-4">
-                            <button type="button" 
-                                wire:navigate 
-                                href="/admin/prices"
-                                class="w-full inline-flex justify-center items-center px-6 py-2.5 border border-transparent
-                                       text-white bg-gray-600 hover:bg-gray-700 focus:ring-gray-500
-                                       rounded-lg transition-all duration-200 font-medium text-sm
-                                       focus:outline-none focus:ring-2 focus:ring-offset-2">
-                                Cancel
-                            </button>
+            <!-- Custom Duration Toggle -->
+            <div class="mb-4 flex items-center">
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="checkbox" wire:model.live="showCustomDuration" value="" class="sr-only peer" {{ $showCustomDuration ? 'checked' : '' }}>
+                    <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-sky-300 dark:peer-focus:ring-sky-800 dark:bg-sky-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-sky-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-sky-600 peer-checked:bg-sky-600"></div>
+                    <span class="ms-3 text-sm font-medium text-slate-700">Custom Duration</span>
+                </label>
+            </div>
 
-                            <button type="submit"
-                                class="w-full inline-flex justify-center items-center px-6 py-2.5
-                                       bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700
-                                       text-white rounded-lg transition-all duration-200 font-medium text-sm
-                                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-                                       shadow-md hover:shadow-lg">
-                                Save
-                            </button>
-                        </div>
-                    </form>
+
+            <!-- Total Price Display -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Price</label>
+                <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">₱{{ number_format((int) $totalPrice, 0) }}</p>
+                @error('totalPrice')
+                    <div class="text-red-500">{{$message}}</div>
+                @enderror
+            </div>
+
+
+            <!-- Time Start & End -->
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Time Started</label>
+                    <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">{{ \Carbon\Carbon::parse($timeStart)->format('h:i A') }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Time Ended</label>
+                    <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">{{ \Carbon\Carbon::parse($timeEnd)->format('h:i A') }}</p>
                 </div>
             </div>
-        </div>
+
+            <!-- Submit Buttons -->
+            <div class="flex space-x-4">
+                <button type="button" 
+                    wire:navigate 
+                    href="/staff/dashboard"
+                    class="w-full bg-[#FF8C00] text-white px-5 py-2.5 rounded-lg font-medium
+                           transform transition-all duration-200 hover:-translate-y-1 
+                           hover:shadow-md hover:bg-[#E67E00]">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                    class="w-full bg-[#00A3E0] text-white py-2.5 px-5 rounded-lg font-medium 
+                           transform transition-all duration-200 hover:-translate-y-1 
+                           hover:shadow-md hover:bg-[#0093CC]">
+                    Save
+                </button>
+            </div>
+        </form>
     </div>
 </div>

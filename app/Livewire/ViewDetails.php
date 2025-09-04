@@ -4,7 +4,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\prices;
 
-class PriceClassification extends Component
+class ViewDetails extends Component
 {
     public $id;
     public $ride_type;
@@ -59,7 +59,7 @@ class PriceClassification extends Component
 
     public function render()
     {
-        return view('livewire.price-classification'); // This will render your Livewire view
+        return view('livewire.view-details'); // This will render your Livewire view
     }
 
     public function deleteClassification()

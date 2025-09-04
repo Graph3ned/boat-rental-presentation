@@ -69,10 +69,19 @@ new class extends Component
             {{ __('Profile Information') }}
         </h2>
 
+        @if(auth()->check() && auth()->user()->userType == 1)
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
             {{ __("Update your account's profile information and email address.") }}
         </p>
+        @endif
+        
+        @if(auth()->check() && auth()->user()->userType == 0)
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            {{ __("Update your account's email address.") }}
+        </p>
+        @endif
     </header>
+    
 
     <form wire:submit="updateProfileInformation" class="mt-6 space-y-6">
     @if(auth()->check() && auth()->user()->userType == 1)
