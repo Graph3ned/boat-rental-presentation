@@ -7,11 +7,11 @@
         <title>{{ $title ?? 'Page Title' }}</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
-        @livewireScripts
         <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     </head>
     <body>
         {{ $slot }}
+        @livewireScripts
     </body>
 </html>

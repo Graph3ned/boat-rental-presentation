@@ -14,7 +14,7 @@
                 <!-- Action Buttons -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                     <button wire:navigate 
-                            href="/admin/addPriceClassification/{{ $ride_type }}" 
+                            href="/admin/add-ride-classification/{{ $ride_type }}" 
                             class="inline-flex justify-center items-center px-6 py-2.5
                                    bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700
                                    text-white rounded-lg transition-all duration-200 font-medium text-sm
@@ -37,7 +37,7 @@
                     </button>
 
                     <button wire:navigate 
-                            href="/admin/editRide/{{ $ride_type }}"
+                            href="/admin/edit-ride-type/{{ $ride_type }}"
                             class="inline-flex justify-center items-center px-6 py-2.5
                                    bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700
                                    text-white rounded-lg transition-all duration-200 font-medium text-sm
@@ -70,12 +70,6 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end space-x-2">
-                                            <button wire:click="classificationConfirmDelete('{{ $price->id }}')"
-                                                    class="inline-flex items-center px-3 py-1.5 bg-red-500 hover:bg-red-600 
-                                                           text-white rounded-lg transition-all duration-200 text-sm
-                                                           shadow hover:shadow-md transform hover:-translate-y-0.5">
-                                                Delete
-                                            </button>
                                             <button wire:navigate 
                                                     href="/admin/priceEdit/{{ $price->id }}"
                                                     class="inline-flex items-center px-3 py-1.5
@@ -83,6 +77,13 @@
                                                            text-white rounded-lg transition-all duration-200 text-sm
                                                            shadow hover:shadow-md transform hover:-translate-y-0.5">
                                                 Edit
+                                            </button>
+
+                                            <button wire:click="classificationConfirmDelete('{{ $price->id }}')"
+                                                    class="inline-flex items-center px-3 py-1.5 bg-red-500 hover:bg-red-600 
+                                                           text-white rounded-lg transition-all duration-200 text-sm
+                                                           shadow hover:shadow-md transform hover:-translate-y-0.5">
+                                                Delete
                                             </button>
                                         </div>
                                     </td>
@@ -95,7 +96,7 @@
                 <!-- Back Button -->
                 <div class="mt-6 flex justify-end">
                     <button wire:navigate 
-                            href="/admin/prices"
+                            href="/admin/rides-rate"
                             class="inline-flex items-center px-6 py-2.5
                                    bg-gray-600 hover:bg-gray-700 text-white rounded-lg 
                                    transition-all duration-200 font-medium text-sm

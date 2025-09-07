@@ -2,7 +2,7 @@
     <x-slot name="header">
     <div class="flex justify-between items-center">
             <h2 class="font-semibold text-2xl text-blue-800 dark:text-blue-300 leading-tight">
-                {{ __('Prices') }}
+                {{ __('Rides Rate') }}
             </h2>
         </div>
     </x-slot>
@@ -39,7 +39,7 @@
         
         <div class="mx-auto max-w-3xl px-8">
             <div class="dark:bg-gray-800 sm:rounded-lg">
-                @livewire('price-classification', ['ride_type'=>$ride_type])
+                @livewire('view-details', ['ride_type'=>$ride_type])
             </div>
         </div>
     </div>

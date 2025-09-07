@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\prices;
 use Livewire\Component;
 
-class AdminEdit extends Component
+class EditRideType extends Component
 {
     public $price;         // Store the price object
     public $ride_type;     // Store the ride_type that can be edited
@@ -26,8 +26,8 @@ class AdminEdit extends Component
             'ride_type' => 'required|string|max:255',
         ]);
 
-        // Capitalize the first letter of the ride type
-        $this->ride_type = ucfirst($this->ride_type);
+        // Capitalize the first letter and replace spaces with underscores
+        $this->ride_type = ucfirst(str_replace(' ', '_', $this->ride_type));
 
         // Update all records with the same ride_type
         prices::where('ride_type', $this->price->ride_type)->update([
@@ -38,12 +38,12 @@ class AdminEdit extends Component
         session()->flash('message', 'Ride type updated successfully!');
 
         // Redirect to the admin dashboard (or wherever you need to go)
-        return redirect()->route('priceClassification', ['ride_type' => $this->ride_type]);
+        return redirect()->route('ViewDetails', ['ride_type' => $this->ride_type]);
     }
 
     // Render the component view
     public function render()
     {
-        return view('livewire.admin-edit');
+        return view('livewire.edit-ride-type');
     }
 }

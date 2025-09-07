@@ -5,7 +5,7 @@ use App\Models\rides_rental_db;
 use Livewire\Component;
 use Carbon\Carbon;
 
-class Rides extends Component
+class StaffDashboard extends Component
 {
     public $rides = [];
     public $totalPrice = 0;
@@ -13,7 +13,7 @@ class Rides extends Component
     public $showModal = false;
     public $modalDetails;
     public $rideToDelete;
-    public $showCreateModal = false;
+    public $showAddRides = false;
     public $showEditModal = false;
     public $editingRideId = null;
     public $rideFilter = 'ongoing';
@@ -86,7 +86,7 @@ class Rides extends Component
 
     public function render()
     {
-        return view('livewire.rides', [
+        return view('livewire.staff-dashboard', [
             'totalPrice' => $this->totalPrice,
             'filteredRides' => $this->getFilteredRidesProperty()
         ]);
@@ -108,7 +108,7 @@ class Rides extends Component
 
     public function handleRideCreated()
     {
-        $this->showCreateModal = false;
+        $this->showAddRides = false;
         // Add any success message or refresh logic
     }
 
@@ -128,5 +128,3 @@ class Rides extends Component
         }
     }
 }
-
-

@@ -31,8 +31,8 @@ new class extends Component
                     </div>
                     
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('AdminDashboard')" :active="request()->routeIs('AdminDashboard')" wire:navigate>
-                            {{ __('Prices') }}
+                        <x-nav-link :href="route('RidesRate')" :active="request()->routeIs('RidesRate')" wire:navigate>
+                            {{ __('Rides Rate') }}
                         </x-nav-link>
                     </div>
 
@@ -46,7 +46,7 @@ new class extends Component
                 @if(auth()->check() && auth()->user()->userType == 0)
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                            {{ __('Dashboard') }}
+                            {{ __('Staff Dashboard') }}
                         </x-nav-link>
                     </div>
                 @endif
@@ -73,7 +73,8 @@ new class extends Component
                         </x-dropdown-link>
 
                         <!-- Authentication -->
-                        <button wire:click="logout" class="w-full text-start">
+                        <button wire:click="logout" wire:navigate 
+                        href="/" class="w-full text-start">
                             <x-dropdown-link>
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -112,8 +113,8 @@ new class extends Component
         </div>
 
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('AdminDashboard')" :active="request()->routeIs('AdminDashboard')" wire:navigate>
-                {{ __('Prices') }}
+            <x-responsive-nav-link :href="route('RidesRate')" :active="request()->routeIs('RidesRate')" wire:navigate>
+                {{ __('Rides Rate') }}
             </x-responsive-nav-link>
         </div>
 

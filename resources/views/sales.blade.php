@@ -15,7 +15,7 @@
                 <!-- Decorative top element -->
                 <div class="h-1 bg-gradient-to-r from-blue-400 via-cyan-500 to-blue-400"></div>
                 
-                @livewire('sales-new')
+                @livewire('sales')
                 
                 <!-- Decorative bottom element -->
                 <div class="h-1 bg-gradient-to-r from-blue-400 via-cyan-500 to-blue-400"></div>

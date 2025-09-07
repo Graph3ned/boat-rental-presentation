@@ -17,7 +17,7 @@
         @livewireScripts
         @livewireChartsScripts
 
-        <link rel="stylesheet" href="{{asset('tailwindcharts/css/flowbite.min')}}">
+        <!-- <link rel="stylesheet" href="{{asset('tailwindcharts/css/flowbite.min')}}"> -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <!-- Flatpickr CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -28,7 +28,7 @@
         <!-- Month Select Plugin JS -->
         <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
     </head>
     <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 ">
