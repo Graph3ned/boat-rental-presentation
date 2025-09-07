@@ -27,8 +27,6 @@
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <!-- Month Select Plugin JS -->
         <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
     </head>
     <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 ">
@@ -51,6 +49,5 @@
         </div>
 
         @stack('scripts')
-        @livewireScripts
     </body>
 </html>

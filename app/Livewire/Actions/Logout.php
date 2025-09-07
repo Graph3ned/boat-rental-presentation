@@ -18,7 +18,4 @@ class Logout
         Session::regenerateToken();
     }
 
-    public function redirect(){
-        return redirect('dashboard');
-    }
 }
